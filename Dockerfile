@@ -1,14 +1,8 @@
 FROM eclipse-mosquitto:2.0
 
+# copy config ke dalam container
+COPY mosquitto.conf /mosquitto/config/mosquitto.conf
 
-# Entrypoint akan bikin mosquitto.conf dinamis (sesuai ENV)
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-
-# Expose TCP MQTT
+# Expose ports untuk MQTT TCP & WebSocket
 EXPOSE 1883
-# WebSocket akan listen di $PORT (Railway akan handle TLS & domain)
-
-
-ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 9001
